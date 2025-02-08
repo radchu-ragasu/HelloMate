@@ -1,0 +1,12 @@
+# Node.js
+Backend/node_modules/
+Backend/.env
+
+# React Native
+Frontend/node_modules/
+Frontend/.expo/
+Frontend/.vscode/
+
+# General
+.DS_Store
+.env
