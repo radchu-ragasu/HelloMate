@@ -6,10 +6,8 @@ import Navigator from "../app/navigation/Navigator"; // Import Navigator which c
 
 export default function App() {
   return (
-    <NavigationContainer>
-
 
       <Navigator />
-    </NavigationContainer>
+   
   );
 }
