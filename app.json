@@ -1,9 +1,17 @@
 {
   "expo": {
+<<<<<<< HEAD
     "name": "Hello_Mate",
     "slug": "Hello_Mate",
     "version": "1.0.0",
     "orientation": "portrait",
+=======
+    "name": "my-expo-app",
+    "slug": "my-expo-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+>>>>>>> 8b301b3 (Initial commit)
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
