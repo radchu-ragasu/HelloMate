@@ -1,12 +1,38 @@
-# Node.js
-Backend/node_modules/
-Backend/.env
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
-# React Native
-Frontend/node_modules/
-Frontend/.expo/
-Frontend/.vscode/
+# dependencies
+node_modules/
 
-# General
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
 .DS_Store
-.env
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+app-example
