@@ -1,0 +1,44 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16 # Or a suitable LTS version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test # If you have tests
+
+      - name: Build Expo app (if needed)
+        run: expo build:web # Or expo build:android, expo build:ios if needed
+
+      - name: Deploy to Expo (if needed)
+        if: github.ref == 'refs/heads/main'  # Only on pushes to main
+        run: |
+          expo publish --clear-credentials # Or your specific Expo deployment command
+          echo "Deployed to Expo"
+
+      - name: Deploy to hosting (if applicable)
+        if: github.ref == 'refs/heads/main' # Only on pushes to main
+        run: |
+          # Your commands to deploy to your hosting provider (e.g., Netlify, Vercel, AWS S3, etc.)
+          echo "Deploying to hosting..."
+          # Example for Netlify CLI:
+          # npm install -g netlify-cli # If netlify-cli is not in package.json
+          # netlify deploy --prod
