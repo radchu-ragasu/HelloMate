@@ -28,18 +28,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   card: {
-    width: "48%",
-    padding: 16,
+    width: "30%",
+    padding: 8,
     backgroundColor: "#3b82f6",
-    borderRadius: 16,
+    borderRadius: 18,
     marginBottom: 16,
     alignItems: "center",
   },
   image: {
     width: 100,
     height: 100,
-    borderRadius: 10,
-    marginBottom: 8,
+    borderRadius: 15,
+    marginBottom: 7,
     resizeMode: "cover", // Ensures proper scaling of the image
   },
   text: {
