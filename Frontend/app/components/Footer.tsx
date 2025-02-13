@@ -4,15 +4,18 @@ import { Feather } from "@expo/vector-icons";
 
 const FooterNav = () => {
   return (
-    <View className="flex-row justify-around bg-white p-4 shadow-md">
+    <View style={{flexDirection:"column", justifyContent:"space-around",backgroundColor:"#000",shadowRadius:4,}}>
       <TouchableOpacity>
         <Feather name="home" size={24} />
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Feather name="shopping-cart" size={24} />
       </TouchableOpacity>
       <TouchableOpacity>
         <Feather name="bell" size={24} />
       </TouchableOpacity>
       <TouchableOpacity>
-        <Feather name="shopping-cart" size={24} />
+        <Feather name="box" size={24} />
       </TouchableOpacity>
     </View>
   );
