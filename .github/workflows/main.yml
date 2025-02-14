@@ -1,0 +1,21 @@
+name: Senadie's CI
+
+on:
+  push:
+    branches: [ Senadie ] # Only triggers on pushes to your branch
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16 # Or your Node.js version
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build # Your build command
+      - run: npm test # Your test command
+
+      # Add any other steps you need for your branch (e.g., linting, etc.)
