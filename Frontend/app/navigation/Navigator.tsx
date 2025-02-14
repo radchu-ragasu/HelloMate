@@ -18,13 +18,6 @@ const Navigator = () => {
         options={{ tabBarIcon: () => <Feather name="home" size={24} /> }}
       />
       <Tab.Screen
-        name="Menu"
-        component={FlexBoxStack} // Use FlexBoxStack here
-        options={{
-          tabBarIcon: () => <Feather name="grid" size={24} />,
-        }}
-      />
-      <Tab.Screen
         name="Notifications"
         component={NotificationScreen}
         options={{ tabBarIcon: () => <Feather name="bell" size={24} /> }}
@@ -44,6 +37,7 @@ const Navigator = () => {
         }}
       />
     </Tab.Navigator>
+    
   );
 };
 

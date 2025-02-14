@@ -1,6 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import FlexBoxComponent from "../screens/MenuScreen";
+import FlexBoxComponent from "../components/dashboardFlex"; 
 import Dashboard from "../screens/Dashboard";
 import ProfileScreen from "../screens/ProfileScreen";
 import ContactScreen from "../screens/ContactScreen";

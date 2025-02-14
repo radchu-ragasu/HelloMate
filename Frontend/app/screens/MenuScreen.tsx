@@ -1,11 +1,11 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import FlexBoxComponent from "../components/dashboardFlex";
+import FlexBoxStack from "../navigation/FlexBoxStack"; // Import the stack navigator
 
-const SomeScreen = () => {
+const MenuScreen = () => {
   return (
     <View style={styles.container}>
-      <FlexBoxComponent />
+      <FlexBoxStack />
     </View>
   );
 };
@@ -13,9 +13,7 @@ const SomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
 
-export default SomeScreen;
+export default MenuScreen;
