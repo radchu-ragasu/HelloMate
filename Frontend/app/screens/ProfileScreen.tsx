@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const HiHello = () => {
+const ProfileScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Profile Here</Text>
+      <Text style={styles.text}>This is the Profile Screen!</Text>
     </View>
   );
 };
@@ -14,13 +14,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#F5F5F5",
   },
   text: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#333",
   },
 });
 
-export default HiHello;
+export default ProfileScreen;
