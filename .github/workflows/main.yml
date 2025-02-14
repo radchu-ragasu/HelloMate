@@ -1,0 +1,38 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ] # Trigger on pushes to the main branch
+  pull_request:
+    branches: [ main ] # Trigger on pull requests to the main branch
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16 # Or your preferred Node.js version
+          cache: 'npm' # Cache node_modules to speed up builds
+
+      - name: Install dependencies
+        run: npm ci # Use npm ci for faster and more reliable installs
+
+      - name: Build
+        run: npm run build # Or your build command (e.g., npm run build, yarn build)
+
+      - name: Run tests
+        run: npm test # Or your test command (e.g., npm test, yarn test)
+
+      # Example deployment step (adjust as needed)
+      - name: Deploy to Production (Example)
+        if: github.ref == 'refs/heads/main' # Only deploy on pushes to main
+        run: |
+          echo "Deploying to production..."
+          # Add your deployment commands here (e.g., SSH, rsync, cloud provider CLI)
+          # Example: ssh user@yourserver "bash deploy.sh"
