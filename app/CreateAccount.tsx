@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-import { UserType } from './types'; 
+
+// Assuming you have a types.ts file with your UserType enum
+enum UserType {
+  BusinessOwner = 'businessOwner',
+  ServiceProvider = 'serviceProvider',
+  Customer = 'customer',
+}
+
 const CreateAccountScreen = () => {
   const router = useRouter();
   const [userType, setUserType] = useState<UserType | null>(null);
@@ -24,26 +31,25 @@ const CreateAccountScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create Account</Text>
-
       <Text style={styles.label}>I am a...</Text>
 
       <TouchableOpacity
-        style={[styles.button, userType === 'businessOwner' && styles.selectedButton]}
-        onPress={() => handleUserTypeSelect(UserType.BusinessOwner)} // Pass enum value
+        style={[styles.button, userType === UserType.BusinessOwner && styles.selectedButton]}
+        onPress={() => handleUserTypeSelect(UserType.BusinessOwner)}
       >
         <Text style={styles.buttonText}>Business Owner</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.button, userType === 'serviceProvider' && styles.selectedButton]}
-        onPress={() => handleUserTypeSelect(UserType.ServiceProvider)} // Pass enum value
+        style={[styles.button, userType === UserType.ServiceProvider && styles.selectedButton]}
+        onPress={() => handleUserTypeSelect(UserType.ServiceProvider)}
       >
         <Text style={styles.buttonText}>Service Provider</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.button, userType === 'customer' && styles.selectedButton]}
-        onPress={() => handleUserTypeSelect(UserType.Customer)} // Pass enum value
+        style={[styles.button, userType === UserType.Customer && styles.selectedButton]}
+        onPress={() => handleUserTypeSelect(UserType.Customer)}
       >
         <Text style={styles.buttonText}>Customer</Text>
       </TouchableOpacity>
@@ -80,7 +86,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
-    
   },
   selectedButton: {
     backgroundColor: '#87CEFA',
