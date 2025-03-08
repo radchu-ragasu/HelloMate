@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Button, Alert, StyleSheet } from "react-native";
 
-export default function App() {
+export default function Message() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>React Native is Working!</Text>
