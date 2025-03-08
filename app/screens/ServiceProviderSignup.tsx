@@ -5,7 +5,7 @@ const ServiceProviderSignup = () => {
   return (
     <View style={styles.container}>
       <Text>Service Provider Signup</Text>
-      {/* ... your signup form or content */}
+      {/* signup form or content */}
     </View>
   );
 };
