@@ -1,19 +1,19 @@
-import streamlit as st  # Import Streamlit for creating the web UI
-import os  # Import OS module to access environment variables
-from langchain_groq import ChatGroq  # Import ChatGroq from LangChain for LLM integration
-from langchain_core.prompts import ChatPromptTemplate  # Import prompt template from LangChain
-from langchain.chains import LLMChain  # Import LLMChain to create a chain for sentiment analysis
+import streamlit as st
+import os
+from langchain_groq import ChatGroq 
+from langchain_core.prompts import ChatPromptTemplate
+from langchain.chains import LLMChain
 
-from dotenv import load_dotenv  # Import dotenv to load environment variables
-load_dotenv()  # Load environment variables from .env file
 
-# Retrieve the Groq API key from environment variables
-groq_api_key = os.getenv("GROQ_KEY")
 
-# Initialize the ChatGroq model with the specified API key and model name
-llm = ChatGroq(groq_api_key=groq_api_key, model_name="qwen-2.5-32b")
+from dotenv import load_dotenv
+load_dotenv()
+## load the GROQ API Key
 
-# Define the prompt template for sentiment analysis
+groq_api_key=os.getenv("GROQ_KEY")
+
+llm=ChatGroq(groq_api_key=groq_api_key,model_name="qwen-2.5-32b")
+
 prompt = ChatPromptTemplate.from_template(
     """
     You are an expert sentiment analysis model. Analyze the sentiment of the following review 
@@ -28,24 +28,25 @@ prompt = ChatPromptTemplate.from_template(
     """
 )
 
-# Create the sentiment analysis chain using the LLM and prompt
+
+
+# Create the sentiment analysis chain
 sentiment_chain = LLMChain(llm=llm, prompt=prompt)
 
 # Streamlit UI
-st.title("Sentiment Analysis Chatbot")  # Title of the app
-st.write("Enter a review, and I'll tell you if it's Positive or Negative!")  # Short description
+st.title("Sentiment Analysis Chatbot")
+st.write("Enter a review, and I'll tell you if it's Positive or Negative!")
 
-# User input text area
+# User Input
 user_review = st.text_area("Enter your review:")
 
-# Button to trigger sentiment analysis
 if st.button("Analyze Sentiment"):
-    if user_review.strip():  # Ensure the user entered a review
+    if user_review.strip():
         # Invoke the LangChain sentiment analysis chain
         response = sentiment_chain.invoke({"review": user_review})
 
-        # Display the sentiment analysis result
+        # Display Result
         st.subheader("Sentiment Result:")
-        st.write(response["text"])  # Display the LLM output
+        st.write(response["text"])  # Display LLM output
     else:
-        st.warning("Please enter a review before analyzing.")  # Show warning if input is empty
+        st.warning("Please enter a review before analyzing.")
