@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, StatusBar, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// Sample data for categories with images
+// Sample data for categories with local images
 const categories = [
   { id: '1', name: 'Cleaning', image: require('../../assets/images/categories/cleaner.png') },
   { id: '2', name: 'Electrician', image: require('../../assets/images/categories/electrician.png') },
@@ -16,10 +16,9 @@ const categories = [
 ];
 
 const CategoriesScreen = ({ navigation }: { navigation: any }) => {
-
   // Handle category selection
-  const handleCategoryPress = (category: { name: string }) => {
-    navigation.navigate('OrderForm', { category }); // Pass the selected category to the OrderForm screen
+  const handleCategoryPress = (category: { name: string, image: any }) => {
+    navigation.navigate('OrderForm', { category }); // Pass the entire category object including image
   };
 
   const renderCategoryItem = ({ item }: { item: { name: string, image: any } }) => (
