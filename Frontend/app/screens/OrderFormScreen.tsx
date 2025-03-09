@@ -20,7 +20,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 type RootStackParamList = {
   Categories: undefined;
-  OrderForm: { category: { name: string, icon?: string } };
+  OrderForm: { category: { name: string, image: any } }; // Image is the require() reference
 };
 
 type OrderFormScreenRouteProp = RouteProp<RootStackParamList, 'OrderForm'>;
@@ -160,9 +160,9 @@ const OrderFormScreen = ({ route, navigation }: OrderFormProps) => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissionResult.granted) {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.Med         iaTypeOptions.Images,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsMultipleSelection: true,
-        selectionLimit: 3 - photos.length, // Limit to the remaining space for photos
+        selectionLimit: 3 - photos.length,
         quality: 1,
       });
 
@@ -188,6 +188,10 @@ const OrderFormScreen = ({ route, navigation }: OrderFormProps) => {
       <View style={styles.content}>
         <Text style={styles.sectionLabel}>Category</Text>
         <View style={styles.categoryCard}>
+          <Image 
+            source={category.image}
+            style={styles.categoryImage}
+          />
           <Text style={styles.categoryName}>{category.name}</Text>
         </View>
 
@@ -233,7 +237,6 @@ const OrderFormScreen = ({ route, navigation }: OrderFormProps) => {
           </Text>
         </TouchableOpacity>
 
-        {/* Display selected images */}
         <ScrollView horizontal style={styles.photosContainer}>
           {photos.map((photo, index) => (
             <Image key={index} source={{ uri: photo }} style={styles.photoThumbnail} />
@@ -253,7 +256,6 @@ const OrderFormScreen = ({ route, navigation }: OrderFormProps) => {
         </TouchableOpacity>
       </View>
 
-      {/* Location Modal */}
       <Modal
         animationType="slide"
         transparent={false}
@@ -347,6 +349,12 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 12,
     marginBottom: 24,
+  },
+  categoryImage: {
+    width: 40,
+    height: 40,
+    marginRight: 12,
+    resizeMode: 'contain',
   },
   categoryName: {
     fontSize: 16,
