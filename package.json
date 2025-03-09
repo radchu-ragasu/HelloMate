@@ -1,0 +1,23 @@
+{
+  "name": "hellomate",
+  "version": "1.0.0",
+  "description": "\"Connecting People\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radchu-ragasu/HelloMate.git"
+  },
+  "keywords": [
+    "\"Hello",
+    "Mate\""
+  ],
+  "author": "\"SE-55\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/radchu-ragasu/HelloMate/issues"
+  },
+  "homepage": "https://github.com/radchu-ragasu/HelloMate#readme"
+}
