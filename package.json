@@ -7,7 +7,8 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "build": "react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle"
+    "build": "react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle",
+    "build-android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/main.jsbundle"
   },
   "repository": {
     "type": "git",
