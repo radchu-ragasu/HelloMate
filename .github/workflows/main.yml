@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ] # Trigger on pushes to the main branch
+    branches: [ main ]  # Trigger on pushes to the main branch
   pull_request:
-    branches: [ main ] # Trigger on pull requests to the main branch
+    branches: [ main ]  # Trigger on pull requests to the main branch
 
 jobs:
   build-and-test:
@@ -23,8 +23,15 @@ jobs:
       - name: Install dependencies
         run: npm ci # Use npm ci for faster and more reliable installs
 
-      - name: Build
-        run: npm run build # Or your build command (e.g., npm run build, yarn build)
+      - name: Install react-native CLI dependencies
+        run: |
+          npm install -g react-native-cli # If react-native CLI is not globally installed yet
+
+      - name: Build for iOS
+        run: npm run build-ios # You should have this custom script in your package.json for iOS
+
+      - name: Build for Android
+        run: npm run build-android # You should have this custom script in your package.json for Android
 
       - name: Run tests
         run: npm test # Or your test command (e.g., npm test, yarn test)
