@@ -1,236 +1,239 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button } from '../components/ui/button';
-import { TextInput } from '../components/ui/text-input';
-import { Card } from '../components/ui/card';
-import { Alert } from '../components/ui/alert';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { auth, db } from '../firebase'; 
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { ref, get } from 'firebase/database';
 
-type UserRole = 'business' | 'provider' | 'customer' | '';
-type AuthMethod = 'google' | 'email' | 'phone' | '';
-
-const LoginScreen = () => {
-  const navigation = useNavigation();
-  const [userRole, setUserRole] = useState<UserRole>('');
-  const [authMethod, setAuthMethod] = useState<AuthMethod>('');
+export default function LoginScreen() {
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [error, setError] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleRoleSelect = (role: UserRole) => {
-    setUserRole(role);
-    setError('');
-  };
+  // Check if user is already logged in when component mounts
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        // User is already signed in, redirect to home
+        router.replace('/home');
+      }
+    });
 
-  const handleAuthMethodSelect = (method: AuthMethod) => {
-    setAuthMethod(method);
-    setError('');
-  };
+    // Cleanup subscription
+    return unsubscribe;
+  }, []);
 
-  const handleGoogleAuth = async () => {
-    try {
-      // Implement Google authentication logic here
-      console.log('Google auth initiated');
-    } catch (error) {
-      setError('Google authentication failed');
-    }
-  };
-
-  const handleSubmit = async () => {
-    if (!userRole) {
-      setError('Please select a user role');
-      return;
-    }
-    if (!authMethod) {
-      setError('Please select an authentication method');
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Please enter both email and password');
       return;
     }
 
+    setLoading(true);
+    
     try {
-      // Implement authentication logic based on selected method
-      console.log('Login attempted:', { userRole, authMethod, email, phone });
-      // Navigate to Dashboard on success
-      // navigation.navigate('Dashboard');
+      // Try to sign in with Firebase Authentication
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      // Check if user exists in the database
+      const userRef = ref(db, `users/${user.uid}`);
+      const snapshot = await get(userRef);
+      
+      if (snapshot.exists()) {
+        // User exists in the database, proceed with login
+        console.log('User is logged in:', user.uid);
+        
+        // Retrieve user type to determine which screen to navigate to
+        const userData = snapshot.val();
+        if (userData.userType === 'serviceProvider') {
+          router.replace('/providerDashboard');
+        } else {
+          router.replace('/home');
+        }
+      } else {
+        // User authenticated but not in database
+        // This could happen if auth record exists but database record was deleted
+        Alert.alert('Account Error', 'User account information not found. Please contact support.');
+        await auth.signOut(); // Sign out the user since their data is incomplete
+      }
     } catch (error) {
-      setError('Authentication failed');
+      let errorMessage = 'An error occurred during login';
+      
+      if (error.code === 'auth/user-not-found') {
+        errorMessage = 'No account found with this email';
+      } else if (error.code === 'auth/wrong-password') {
+        errorMessage = 'Incorrect password';
+      } else if (error.code === 'auth/invalid-email') {
+        errorMessage = 'Invalid email format';
+      } else if (error.code === 'auth/too-many-requests') {
+        errorMessage = 'Too many failed login attempts. Please try again later';
+      }
+      
+      Alert.alert('Login Failed', errorMessage);
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  const navigateToSignup = () => {
+    router.push('../CreateAccount');
+  };
+
+  const navigateToForgotPassword = () => {
+    router.push('/forgotpw');
+  };
+
+  if (loading) {
+    return (
+      <View style={[styles.container, styles.loadingContainer]}>
+        <ActivityIndicator size="large" color="#ADD8E6" />
+        <Text style={styles.loadingText}>Logging in...</Text>
+      </View>
+    );
+  }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Card style={styles.card}>
-          <Text style={styles.title}>Welcome Back!</Text>
-          <Text style={styles.description}>
-            Please select your role and preferred login method
-          </Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>Login</Text>
 
-          {/* Role Selection */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>I am a:</Text>
-            <View style={styles.roleButtons}>
-              <Button
-                onPress={() => handleRoleSelect('business')}
-                variant={userRole === 'business' ? 'filled' : 'outlined'}
-                style={styles.roleButton}
-              >
-                Business Owner
-              </Button>
-              <Button
-                onPress={() => handleRoleSelect('provider')}
-                variant={userRole === 'provider' ? 'filled' : 'outlined'}
-                style={styles.roleButton}
-              >
-                Service Provider
-              </Button>
-              <Button
-                onPress={() => handleRoleSelect('customer')}
-                variant={userRole === 'customer' ? 'filled' : 'outlined'}
-                style={styles.roleButton}
-              >
-                Customer
-              </Button>
-            </View>
-          </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#999"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
 
-          {/* Authentication Method Selection */}
-          {userRole && (
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Login with:</Text>
-              <View style={styles.authButtons}>
-                <Button
-                  onPress={() => handleAuthMethodSelect('google')}
-                  variant="outlined"
-                  style={styles.authButton}
-                  icon={<Ionicons name="logo-google" size={20} color="#666" />}
-                >
-                  Continue with Google
-                </Button>
-                
-                <Button
-                  onPress={() => handleAuthMethodSelect('email')}
-                  variant="outlined"
-                  style={styles.authButton}
-                  icon={<Ionicons name="mail" size={20} color="#666" />}
-                >
-                  Continue with Email
-                </Button>
-                
-                <Button
-                  onPress={() => handleAuthMethodSelect('phone')}
-                  variant="outlined"
-                  style={styles.authButton}
-                  icon={<Ionicons name="phone-portrait" size={20} color="#666" />}
-                >
-                  Continue with Phone
-                </Button>
-              </View>
-            </View>
-          )}
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            placeholderTextColor="#999"
+            secureTextEntry={!showPassword}
+            value={password}
+            onChangeText={setPassword}
+          />
+          <TouchableOpacity
+            style={styles.eyeIcon}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Ionicons
+              name={showPassword ? "eye-off" : "eye"}
+              size={24}
+              color="#999"
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
 
-          {/* Email Input */}
-          {authMethod === 'email' && (
-            <View style={styles.section}>
-              <TextInput
-                placeholder="Enter your email"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-              />
-              <Button onPress={handleSubmit} style={styles.submitButton}>
-                Continue
-              </Button>
-            </View>
-          )}
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={handleLogin}
+      >
+        <Text style={styles.loginButtonText}>Log in</Text>
+      </TouchableOpacity>
 
-          {/* Phone Input */}
-          {authMethod === 'phone' && (
-            <View style={styles.section}>
-              <TextInput
-                placeholder="Enter your phone number"
-                value={phone}
-                onChangeText={setPhone}
-                keyboardType="phone-pad"
-              />
-              <Button onPress={handleSubmit} style={styles.submitButton}>
-                Continue
-              </Button>
-            </View>
-          )}
+      <TouchableOpacity
+        style={styles.createAccountButton}
+        onPress={navigateToSignup}
+      >
+        <Text style={styles.createAccountButtonText}>Create an account</Text>
+      </TouchableOpacity>
 
-          {/* Error Message */}
-          {error && (
-            <Alert variant="error" style={styles.alert}>
-              {error}
-            </Alert>
-          )}
-        </Card>
-      </ScrollView>
-    </SafeAreaView>
+      <TouchableOpacity
+        style={styles.forgotPasswordButton}
+        onPress={navigateToForgotPassword}
+      >
+        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+      </TouchableOpacity>
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  scrollContainer: {
-    flexGrow: 1,
-    padding: 16,
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
   },
-  card: {
-    padding: 20,
-    borderRadius: 12,
-    backgroundColor: 'white',
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+  loadingContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  description: {
+  loadingText: {
+    marginTop: 10,
     fontSize: 16,
     color: '#666',
-    textAlign: 'center',
-    marginBottom: 24,
   },
-  section: {
-    marginBottom: 24,
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 40,
   },
-  sectionTitle: {
+  inputContainer: {
+    width: '80%',
+    marginBottom: 30,
+  },
+  passwordContainer: {
+    position: 'relative',
+    width: '100%',
+  },
+  input: {
+    backgroundColor: '#f5f5f5',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 15,
+    width: '100%',
     fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 12,
   },
-  roleButtons: {
-    gap: 8,
+  eyeIcon: {
+    position: 'absolute',
+    right: 15,
+    top: 15,
   },
-  roleButton: {
-    marginBottom: 8,
+  loginButton: {
+    backgroundColor: '#ADD8E6',
+    paddingVertical: 12,
+    paddingHorizontal: 40,
+    borderRadius: 25,
+    alignItems: 'center',
+    elevation: 5, // For Android shadow
+    shadowColor: '#000', // For iOS shadow
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
   },
-  authButtons: {
-    gap: 8,
+  loginButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
-  authButton: {
-    marginBottom: 8,
+  createAccountButton: {
+    marginTop: 20,
+    backgroundColor: 'transparent',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
-  submitButton: {
-    marginTop: 12,
+  createAccountButtonText: {
+    color: '#007AFF',
+    fontSize: 16,
+    textDecorationLine: 'underline',
   },
-  alert: {
-    marginTop: 12,
+  forgotPasswordButton: {
+    marginTop: 15,
+  },
+  forgotPasswordText: {
+    color: '#666',
+    fontSize: 14,
   },
 });
-
-export default LoginScreen;
