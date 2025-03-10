@@ -1,29 +1,38 @@
-const { ChatGroq } = require("langchain_groq");
-const { ChatPromptTemplate } = require("langchain_core.prompts");
-const { LLMChain } = require("langchain_chains");
-require("dotenv").config();
+const axios = require('axios');
 
-const groq_api_key = process.env.GROQ_KEY; // Load the Groq API key from .env
-const llm = new ChatGroq(groq_api_key, "qwen-2.5-32b"); // Specify the model
-
-const prompt = ChatPromptTemplate.from_template(`
-    You are an expert sentiment analysis model. Analyze the sentiment of the following review 
-    and provide a sentiment score as a float with 5 decimal places.
-
-    - If the sentiment is negative, the score should be below 5.00000.
-    - If the sentiment is positive, the score should be above 5.00000.
-    - The score should vary based on the review content, ranging between 0.00000 and 10.00000.
-
-    Review: {review}
-    Sentiment Score:
-`);
-
-const sentimentChain = new LLMChain({ llm, prompt });
-
+// Function to analyze sentiment
 const analyzeSentiment = async (review) => {
-    const response = await sentimentChain.invoke({ review });
-    const sentimentScore = parseFloat(response.text); // Extract the sentiment score from the response
-    return sentimentScore;
+    const groqApiKey = process.env.GROQ_KEY; // Get API Key from the environment variables
+    const url = "https://api.groq.com/sentiment"; // Replace with the actual Groq API endpoint
+
+    try {
+        // Send POST request to Groq API
+        const response = await axios.post(url, {
+            review: review
+        }, {
+            headers: {
+                'Authorization': `Bearer ${groqApiKey}`, // Authorization header with API key
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // Return the sentiment score from the API response
+        const sentimentScore = response.data.score; // Adjust based on the actual response format
+        return sentimentScore;
+    } catch (error) {
+        console.error("Error analyzing sentiment:", error);
+        return null;
+    }
 };
 
-module.exports = { analyzeSentiment };
+// Example usage
+const testSentiment = async () => {
+    const review = "The product is excellent!";  // Sample review
+    const sentimentScore = await analyzeSentiment(review);
+    console.log("Sentiment score:", sentimentScore);  // Output the sentiment score
+};
+
+// Call the function for testing
+testSentiment();
+
+module.exports = { analyzeSentiment }; // Export the function so it can be used elsewhere
