@@ -122,6 +122,12 @@
 //   },
 // });
 
+<<<<<<< HEAD
+import ReportStack from "./navigation/ReportStack";
+
+export default function RootLayout() {
+  return <ReportStack/>;
+=======
 
 // import React from "react";
 // import { createStackNavigator } from "@react-navigation/stack";
@@ -145,4 +151,5 @@ import PlaceOrderStack from "./navigation/PlaceOrderStack";
 
 export default function RootLayout() {
   return <PlaceOrderStack />;
+>>>>>>> main
 }
