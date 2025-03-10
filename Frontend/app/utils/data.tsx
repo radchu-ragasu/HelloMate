@@ -22,7 +22,7 @@ export const services = [
   {
     id: "5",
     title: "Plumber",
-    image: require("../../assets/images/image5.png"),
+    image: require("../../assets/images/image5.jpg"),
   },
   { id: "6", title: "Tutor", image: require("../../assets/images/image6.jpg") },
   {
@@ -38,6 +38,6 @@ export const services = [
   {
     id: "9",
     title: "Babysitter",
-    image: require("../../assets/images/image9.png"),
+    image: require("../../assets/images/image9.jpg"),
   },
 ];

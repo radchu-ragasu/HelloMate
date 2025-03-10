@@ -122,8 +122,34 @@
 //   },
 // });
 
+<<<<<<< HEAD
 import ReportStack from "./navigation/ReportStack";
 
 export default function RootLayout() {
   return <ReportStack/>;
+=======
+
+// import React from "react";
+// import { createStackNavigator } from "@react-navigation/stack";
+// import CategoriesScreen from "./screens/CategoriesScreen";
+
+
+// const Stack = createStackNavigator();
+
+// const PlaceOrderStack = () => {
+//     return (
+//         <Stack.Navigator screenOptions={{ headerShown: false }}>
+//             <Stack.Screen name="PlaceOrder" component={CategoriesScreen}/>
+
+//         </Stack.Navigator>
+//     )
+// }
+
+// export default PlaceOrderStack; 
+
+import PlaceOrderStack from "./navigation/PlaceOrderStack";
+
+export default function RootLayout() {
+  return <PlaceOrderStack />;
+>>>>>>> main
 }

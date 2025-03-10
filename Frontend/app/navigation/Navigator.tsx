@@ -6,6 +6,7 @@ import NotificationScreen from "../screens/NotificationScreen";
 import OrderScreen from "../screens/OrderScreen";
 import PromoScreen from "../screens/Promotion ";
 import { Feather } from "@expo/vector-icons";
+import PlaceOrderStack from "./PlaceOrderStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -34,6 +35,13 @@ const Navigator = () => {
         component={PromoScreen}
         options={{
           tabBarIcon: () => <Feather name="settings" size={24} />,
+        }}
+      />
+      <Tab.Screen
+        name="PlaceOrderStack"
+        component={PlaceOrderStack}
+        options={{
+          tabBarIcon: () => <Feather name="shopping-cart" size={24} />,
         }}
       />
     </Tab.Navigator>
