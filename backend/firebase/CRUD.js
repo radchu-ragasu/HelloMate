@@ -1,27 +1,26 @@
 const db = require("./index"); // Import Firestore instance
-const readline = require("readline-sync"); // Import readline-sync for input
+const { analyzeSentiment } = require("../LLM/LLM"); // Import sentiment analysis function
 
 const saveFeedback = async () => {
-    // Step 1: Get the latest feedback count
+    // Step 1: Generate FeedbackID (F00001, F00002, ...)
     const snapshot = await db.collection("Feedbacks").get();
     const FeedbackCount = snapshot.size + 1; // Get next feedback number
+    const FeedbackID = `F${String(FeedbackCount).padStart(5, "0")}`; // Generate FeedbackID
 
-    // Step 2: Generate FeedbackID (F00001, F00002, ...)
-    const FeedbackID = `F${String(FeedbackCount).padStart(5, "0")}`;
-
-    // Step 3: Ask user for input
-    const workerID = readline.question("Enter Worker ID: ");
+    // Step 2: Get feedback input from customer
+    const readline = require("readline-sync");
     const reviewGiverID = readline.question("Enter Review Giver ID: ");
     const Feedback = readline.question("Enter Feedback: ");
-    const FeedbackRating = readline.questionInt("Enter Feedback Rating (1-5): ");
 
-    // Step 4: Save data to Firestore
+    // Step 3: Analyze sentiment of the feedback
+    const sentimentScore = await analyzeSentiment(Feedback); // Call the sentiment analysis function
+
+    // Step 4: Save the feedback and sentiment score to Firestore
     await db.collection("Feedbacks").doc(FeedbackID).set({
-        WorkerID: workerID,
         ReviewGiverID: reviewGiverID,
         Feedback: Feedback,
-        FeedbackRating: FeedbackRating,
-        FeedbackID: FeedbackID, // Store FeedbackID inside document
+        SentimentScore: sentimentScore, // Store sentiment score
+        FeedbackID: FeedbackID, // Store FeedbackID
     });
 
     console.log(`Feedback saved successfully with ID: ${FeedbackID}`);

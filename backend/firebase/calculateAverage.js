@@ -4,12 +4,10 @@ const getWorkerRatings = async () => {
     const snapshot = await db.collection("Feedbacks").get(); // Get all feedbacks
     const workerRatings = {}; // Store worker ratings
 
-    // Step 1: Loop through each feedback document
     snapshot.forEach((doc) => {
         const data = doc.data();
         const { WorkerID, FeedbackRating } = data;
 
-        // Step 2: Aggregate ratings for each worker
         if (!workerRatings[WorkerID]) {
             workerRatings[WorkerID] = { totalRating: 0, count: 0 };
         }
@@ -18,7 +16,7 @@ const getWorkerRatings = async () => {
         workerRatings[WorkerID].count += 1;
     });
 
-    // Step 3: Calculate the average rating for each worker
+    // Calculate average rating for each worker
     const workerAverages = Object.keys(workerRatings).map((workerID) => {
         return {
             WorkerID: workerID,
@@ -26,13 +24,10 @@ const getWorkerRatings = async () => {
         };
     });
 
-    // Step 4: Sort by AverageRating in descending order
-    workerAverages.sort((a, b) => b.AverageRating - a.AverageRating);
+    workerAverages.sort((a, b) => b.AverageRating - a.AverageRating); // Sort by average rating
 
-    // Step 5: Display results
     console.log("Worker Ratings in Descending Order:");
-    console.table(workerAverages);
+    console.table(workerAverages); // Display results
 };
 
-// Call the function
 getWorkerRatings();
