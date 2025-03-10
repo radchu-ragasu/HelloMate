@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { auth, database } = require('../config/firebaseConfig');
-const authMiddleware = require('../middleware/AuthMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
 // Signup Route
 // POST endpoint for user registration
 // https://localhost:3000/signup

@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { admin, auth, database } = require('../config/firebaseConfig');
-const authMiddleware = require('../middleware/AuthMiddleware');
-const userController = require('../controllers/UserController');
-// User Registration
+const authMiddleware = require('../middleware/authMiddleware');
+const userController = require('../controllers/userController');
 //POST endpoint
 //endpoint for registering new users
 //http://localhost:3000/register

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { admin, database } = require('../config/firebaseConfig');
-const authMiddleware = require('../middleware/AuthMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
 // Create Listing
 //POST endpoint for creating listings
 //http://localhost:3000/create
