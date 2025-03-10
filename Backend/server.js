@@ -1,28 +1,26 @@
-<<<<<<< HEAD
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const reportRoutes = require("./src/routes/ReportRoutes");
-=======
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const orderRoutes = require('./src/routes/orderRoutes'); // Import the routes
->>>>>>> main
+
+const reportRoutes = require('./src/routes/ReportRoutes');
+const orderRoutes = require('./src/routes/orderRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+const listingRoutes = require('./src/routes/listingRoutes');
 
 const app = express();
-const PORT = 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
 
-<<<<<<< HEAD
-app.use("/", reportRoutes);
-=======
-app.use('/', orderRoutes); // Use the routes
->>>>>>> main
+app.use('/api/reports', reportRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/listings', listingRoutes);
 
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(Server running on port ${PORT});
 });
+
+module.exports = app;

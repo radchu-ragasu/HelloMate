@@ -1,21 +1,13 @@
 {
   "name": "hellomate",
   "version": "1.0.0",
-  "description": "Connecting People",
   "main": "index.js",
   "scripts": {
-    "start": "react-native start",
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "build-ios": "react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle",
-    "build-android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/main.jsbundle"
+    "start": "node Backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "react": "^19.0.0",
-    "react-native": "^0.78.0"
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.16.0",
-    "@babel/preset-react": "^7.16.0"
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
