@@ -10,7 +10,7 @@ import SuccessModal from "../components/success-modal"
 export default function EditPhotoScreen() {
   const navigation = useNavigation()
   const [showSuccess, setShowSuccess] = useState(false)
-
+//
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
