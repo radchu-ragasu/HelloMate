@@ -1,14 +1,18 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-
+import { useRouter } from "expo-router";
 
 const OrderDetailScreen = () => {
+  const router = useRouter(); // ✅ Initialize router for navigation
+
   return (
     <ScrollView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <FontAwesome name="arrow-left" size={20} color="#fff" />
+        <TouchableOpacity onPress={() => router.back()}>
+          <FontAwesome name="arrow-left" size={20} color="#fff" />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>Order Detail</Text>
         <FontAwesome name="ellipsis-h" size={20} color="#fff" />
       </View>
@@ -69,6 +73,11 @@ const OrderDetailScreen = () => {
           ))}
         </View>
       </View>
+
+      {/* ✅ Button to Move to Another Screen */}
+      <TouchableOpacity style={styles.button} onPress={() => router.push("./order details/OrderScreen1")}>
+        <Text style={styles.buttonText}>Go to Order Screen 1</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -181,6 +190,18 @@ const styles = StyleSheet.create({
     height: 60,
     marginRight: 10,
     borderRadius: 5,
+  },
+  button: {
+    backgroundColor: "#1E88E5",
+    padding: 15,
+    margin: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
 
