@@ -25,7 +25,7 @@ export default function Avatar({ size = 100, onImageSelected, currentImage }: Av
       onImageSelected?.(result.assets[0].uri);
     }
   };
-
+//pic
   const takePhoto = async () => {
     const result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
