@@ -1,10 +1,10 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import OrderDetailScreen from "./order details/OrderScreen4";
+import OrderDetailScreen from "./order details/OrderScreen";
 
 const Stack = createStackNavigator();
-
+//navigator 
 const StackNavigator = () => {
   return (
       <Stack.Navigator initialRouteName="OrderScreen">
