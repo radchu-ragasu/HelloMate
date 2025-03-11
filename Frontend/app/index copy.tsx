@@ -6,7 +6,7 @@
 // import EditNameScreen from "./screens/edit-name"
 // import EditPhoneScreen from "./screens/edit-phone"
 // import EditGenderScreen from "./screens/edit-gender"
-
+//import libraries
 // const Stack = createNativeStackNavigator<RootStackParamList>()
 
 // export default function App() {
