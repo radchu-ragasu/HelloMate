@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react";//import 
 import { NavigationContainer } from "@react-navigation/native";
 import Navigator from "../app/navigation/Navigator";
 

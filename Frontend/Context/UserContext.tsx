@@ -15,7 +15,7 @@ type UserContextType = {
   user: User
   updateUser: (data: Partial<User>) => void
 }
-
+//Database 
 const defaultUser: User = {
   name: "John Doe",
   email: "john.doe@example.com",
