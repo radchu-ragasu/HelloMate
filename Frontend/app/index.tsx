@@ -1,13 +1,27 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import Navigator from "../app/navigation/Navigator";
+import { createStackNavigator } from "@react-navigation/stack";
+import OrderDetailScreen from "./order details/OrderScreen4";
 
+const Stack = createStackNavigator();
+
+const StackNavigator = () => {
+  return (
+      <Stack.Navigator initialRouteName="OrderScreen">
+      <Stack.Screen 
+          name="OrderScreen" 
+          component={OrderDetailScreen} 
+          options={{ title: "Order Detail" }} 
+        />
+        </Stack.Navigator>
+  );
+};
 const App = () => {
   return (
     <NavigationContainer>
-      <Navigator />
+      {/* ✅ Using the StackNavigator function here */}
+      <StackNavigator />
     </NavigationContainer>
   );
 };
-
 export default App;

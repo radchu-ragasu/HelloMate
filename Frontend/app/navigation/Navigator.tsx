@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import DashboardStack from "../navigation/dashboardStack";
 import FlexBoxStack from "../navigation/FlexBoxStack"; // Import the new stack
 import NotificationScreen from "../screens/NotificationScreen";
-import OrderScreen from "../screens/OrderScreen";
+import OrderScreen from "../order details/OrderScreen";
 import PromoScreen from "../screens/Promotion ";
 import { Feather } from "@expo/vector-icons";
 

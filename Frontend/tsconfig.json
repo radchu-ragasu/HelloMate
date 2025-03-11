@@ -8,7 +8,11 @@
       "@/*": [
         "./*"
       ]
-    }
+    }, 
+    "types": [
+      "react-test-renderer",
+      "tough-cookie"
+    ]
   },
   "include": [
     "**/*.ts",
