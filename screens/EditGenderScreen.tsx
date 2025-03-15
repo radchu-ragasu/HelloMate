@@ -8,6 +8,7 @@ import { useUser } from "../context/UserContext"
 
 const genderOptions = ["Male", "Female", "Other", "Prefer not to say"]
 
+
 export default function EditGenderScreen() {
   const navigation = useNavigation()
   const { user, updateUser } = useUser()
