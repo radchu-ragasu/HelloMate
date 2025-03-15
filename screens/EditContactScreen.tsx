@@ -10,6 +10,7 @@ export default function EditContactScreen() {
   const navigation = useNavigation()
   const { user, updateUser } = useUser()
   const [contact, setContact] = useState(user.contact)
+  
 
   const handleSave = () => {
     updateUser({ contact })

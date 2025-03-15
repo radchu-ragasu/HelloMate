@@ -10,6 +10,7 @@ export default function EditEmailScreen() {
   const navigation = useNavigation()
   const { user, updateUser } = useUser()
   const [email, setEmail] = useState(user.email)
+  
 
   const handleSave = () => {
     updateUser({ email })

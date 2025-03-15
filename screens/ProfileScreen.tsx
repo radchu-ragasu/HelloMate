@@ -4,6 +4,7 @@ import * as ImagePicker from "expo-image-picker"
 
 export default function ProfileScreen() {
   const { user, updateUser } = useUser()
+  
 
   const pickImage = async () => {
     // Request permission
