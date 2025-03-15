@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import OrderDetailScreen from "./order details/OrderScreen";
+import OrderDetailScreen from "./order details/OrderScreen1";
 
 const Stack = createStackNavigator();
 //navigator 
