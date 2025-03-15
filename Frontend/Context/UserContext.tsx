@@ -11,6 +11,8 @@ type User = {
   profilePicture: string | null
 }
 
+
+
 type UserContextType = {
   user: User
   updateUser: (data: Partial<User>) => void
