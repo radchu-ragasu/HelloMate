@@ -8,6 +8,9 @@ import EditNameScreen from "./src/screens/EditNameScreen"
 
 const Stack = createNativeStackNavigator()
 
+
+
+
 export default function App() {
   return (
     <SafeAreaProvider>
