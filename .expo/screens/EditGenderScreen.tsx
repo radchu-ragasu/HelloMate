@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons"
 import { useNavigation } from "@react-navigation/native"
 import { useUser } from "../context/UserContext"
 
+
 const genderOptions = ["Male", "Female", "Other", "Prefer not to say"]
 
 export default function EditGenderScreen() {
