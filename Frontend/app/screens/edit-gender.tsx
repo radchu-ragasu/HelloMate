@@ -9,7 +9,7 @@ import RadioOption from "../components/radio-option"
 import SuccessModal from "../components/success-modal"
 
 type Props = NativeStackScreenProps<RootStackParamList, "EditGender">
-
+//
 const GENDER_OPTIONS: Gender[] = ["Male", "Female", "Other"]
 
 export default function EditGenderScreen() {
