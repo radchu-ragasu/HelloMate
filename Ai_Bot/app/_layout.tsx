@@ -5,6 +5,7 @@ import { ThemeProvider } from '../components/ThemeProvider';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? 'dark' : 'light'}>
