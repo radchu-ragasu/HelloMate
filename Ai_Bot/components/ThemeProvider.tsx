@@ -9,6 +9,7 @@ interface ThemeProviderProps {
   value: ThemeType;
 }
 
+
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, value }) => {
   return (
     <ThemeContext.Provider value={value}>
