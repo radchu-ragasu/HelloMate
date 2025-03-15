@@ -6,6 +6,7 @@ import { useUser } from "../context/UserContext"
 import React, { useState } from 'react';
 
 
+
 export default function EditNameScreen() {
   const navigation = useNavigation()
   const { user, updateUser } = useUser()
