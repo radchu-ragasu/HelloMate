@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons"
 import { useNavigation } from "@react-navigation/native"
 import { useUser } from "../context/UserContext"
 
+
 export default function EditContactScreen() {
   const navigation = useNavigation()
   const { user, updateUser } = useUser()
