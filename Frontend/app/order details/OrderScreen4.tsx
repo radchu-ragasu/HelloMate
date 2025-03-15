@@ -2,16 +2,20 @@ import React, { useState } from "react";
 import { 
   View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Modal 
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";  // ✅ Import navigation
 import { FontAwesome } from "@expo/vector-icons";
 
 const OrderDetailScreen = () => {
-  const [modalVisible, setModalVisible] = useState(false); // State for modal visibility
+  const [modalVisible, setModalVisible] = useState(false); 
+  const navigation = useNavigation();  // ✅ Get navigation instance
 
   return (
     <ScrollView style={styles.container}>
-      {/* Header */} 
+      {/* Header with back button */}
       <View style={styles.header}>
-        <FontAwesome name="arrow-left" size={20} color="#fff" />
+        <TouchableOpacity onPress={() => navigation.goBack()}>  
+          <FontAwesome name="arrow-left" size={20} color="#fff" />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>Order Detail</Text>
         <FontAwesome name="ellipsis-h" size={20} color="#fff" />
       </View>
@@ -106,32 +110,31 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#fff",
     fontWeight: "bold",
-},
-statusContainer: {
-  backgroundColor: "#FFCC00", // Yellow background for visibility
-  padding: 10,
-  borderRadius: 5,
-  alignItems: "center",
-  marginVertical: 10,
-},
-statusText: {
-  fontSize: 16,
-  fontWeight: "bold",
-  color: "#333",
-},
-statusDescription: {
-  fontSize: 14,
-  color: "#666",
-  textAlign: "center",
-  marginTop: 5,
-},
-addressText: {
-  fontSize: 16,
-  fontWeight: "500",
-  color: "#444",
-  marginTop: 10,
-
-},
+  },
+  statusContainer: {
+    backgroundColor: "#FFCC00",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    marginVertical: 10,
+  },
+  statusText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  statusDescription: {
+    fontSize: 14,
+    color: "#666",
+    textAlign: "center",
+    marginTop: 5,
+  },
+  addressText: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#444",
+    marginTop: 10,
+  },
   card: {
     backgroundColor: "#fff",
     margin: 10,
@@ -142,8 +145,7 @@ addressText: {
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     elevation: 3,
-
-},
+  },
   sectionTitle: {
     fontSize: 16,
     fontWeight: "bold",
@@ -204,7 +206,6 @@ addressText: {
     marginTop: 10,
     color: "#444",
   },
-  });
-  
+});
 
 export default OrderDetailScreen;
