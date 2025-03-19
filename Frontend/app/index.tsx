@@ -14,7 +14,7 @@ const App = () => {
     </SafeAreaProvider>
   );
 };
-
+//
 // Instead of importing from app.json
 const appName = 'HelloMate'; // Or whatever your app name is
 AppRegistry.registerComponent(appName, () => App);
