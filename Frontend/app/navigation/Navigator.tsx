@@ -1,44 +1,45 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import DashboardStack from "../navigation/dashboardStack";
-import FlexBoxStack from "../navigation/FlexBoxStack"; // Import the new stack
-import NotificationScreen from "../screens/NotificationScreen";
-import OrderScreen from "../order details/OrderScreen";
-import PromoScreen from "../screens/Promotion ";
-import { Feather } from "@expo/vector-icons";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import OrderScreen6 from '../order details/OrderScreen6'; 
+import HomeScreen from '../order details/HomeScreen'; 
 
-const Tab = createBottomTabNavigator();
-
-const Navigator = () => {
-  return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen
-        name="Home"
-        component={DashboardStack}
-        options={{ tabBarIcon: () => <Feather name="home" size={24} /> }}
-      />
-      <Tab.Screen
-        name="Notifications"
-        component={NotificationScreen}
-        options={{ tabBarIcon: () => <Feather name="bell" size={24} /> }}
-      />
-      <Tab.Screen
-        name="Orders"
-        component={OrderScreen}
-        options={{
-          tabBarIcon: () => <Feather name="shopping-cart" size={24} />,
-        }}
-      />
-      <Tab.Screen
-        name="Promo"
-        component={PromoScreen}
-        options={{
-          tabBarIcon: () => <Feather name="settings" size={24} />,
-        }}
-      />
-    </Tab.Navigator>
-    
-  );
+export type RootStackParamList = {
+  OrderScreen6: { orderData: OrderData };
+  Home: undefined;
 };
 
-export default Navigator;
+export type OrderData = {
+  id: string;
+  status: string;
+  address: string;
+  serviceType: string;
+  orderDate: string;
+  details: string;
+  attachments?: string[];
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
+
+const MainStack = () => (
+  <Stack.Navigator initialRouteName="Home">
+    <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="OrderScreen6" component={OrderScreen6} options={{ headerShown: false }} />
+  </Stack.Navigator>
+);
+
+export default function AppNavigator() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen 
+          name="OrderScreen6" 
+          component={OrderScreen6} 
+          options={{ headerShown: false }} 
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
