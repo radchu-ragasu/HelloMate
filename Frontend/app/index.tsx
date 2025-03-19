@@ -1,17 +1,14 @@
-<<<<<<< HEAD
 import React from 'react';
 import { AppRegistry } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import  AppNavigator  from './navigation/Navigator'; // Changed to named import
-=======
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import OrderDetailScreen from "./order details/OrderScreen4"
->>>>>>> 7616f9256d780dc40f20680072a758896ffea9b0
 
-
+//
 const App = () => {
   return (
     <SafeAreaProvider>
