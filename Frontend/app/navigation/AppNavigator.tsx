@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // In your navigation file (e.g., AppNavigator.tsx)
 import { createStackNavigator } from '@react-navigation/stack';
 import OrderScreen6 from '../order details/OrderScreen6';
@@ -19,3 +20,6 @@ function AppNavigator() {
   );
 }
 export default AppNavigator;
+=======
+
+>>>>>>> 7616f9256d780dc40f20680072a758896ffea9b0

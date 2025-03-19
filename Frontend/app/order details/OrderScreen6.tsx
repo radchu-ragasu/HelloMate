@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+<<<<<<< HEAD
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { RootStackParamList } from '../navigation/Navigator';
 
+=======
+>>>>>>> 7616f9256d780dc40f20680072a758896ffea9b0
 
 // Define your order data type
 interface OrderData {
@@ -17,9 +20,23 @@ interface OrderData {
   attachments?: string[];
 }
 
+<<<<<<< HEAD
 type OrderScreen6Props = {
   route: RouteProp<RootStackParamList, 'OrderScreen6'>;
   navigation: StackNavigationProp<RootStackParamList>;
+=======
+// Define your navigation parameter list type
+type RootStackParamList = {
+  OrderScreen6: { orderData: OrderData };
+  Home: undefined;
+  // Add other screens as needed
+};
+
+// Define the props for your component
+type OrderScreen6Props = {
+  route: RouteProp<RootStackParamList, 'OrderScreen6'>;
+  navigation: StackNavigationProp<RootStackParamList, any>;
+>>>>>>> 7616f9256d780dc40f20680072a758896ffea9b0
 };
 
 const OrderScreen6 = ({ route, navigation }: OrderScreen6Props) => {
@@ -362,5 +379,9 @@ const styles = StyleSheet.create({
   },
 });
 
+<<<<<<< HEAD
 
 export default  OrderScreen6;
+=======
+export default OrderScreen6;
+>>>>>>> 7616f9256d780dc40f20680072a758896ffea9b0
