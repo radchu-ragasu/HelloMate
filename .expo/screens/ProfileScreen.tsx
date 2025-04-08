@@ -13,7 +13,7 @@ export default function ProfileScreen() {
     if (status !== "granted") {
       Alert.alert("Permission needed", "Please grant permission to access your photos")
       return
-    }
+    } 
 
     // Launch image picker
     const result = await ImagePicker.launchImageLibraryAsync({

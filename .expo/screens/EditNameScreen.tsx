@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons"
 import { useNavigation } from "@react-navigation/native"
 import { useUser } from "../context/UserContext"
 import React, { useState } from 'react';
-
+ 
 
 
 export default function EditNameScreen() {
