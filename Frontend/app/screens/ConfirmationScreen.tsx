@@ -1,26 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { useRouter } from 'expo-router';
 
-type RootStackParamList = {
-  ConfirmationScreen: undefined;
-  ReportProblemScreen: undefined;
-};
+const ConfirmationScreen = () => {
+  const router = useRouter();
 
-
-type ConfirmationScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ConfirmationScreen'>;
-
-
-interface ConfirmationScreenProps {
-  navigation: ConfirmationScreenNavigationProp;
-}
-
-const ConfirmationScreen = ({ navigation }: ConfirmationScreenProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="chevron-back" size={24} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Confirmation</Text>
@@ -38,7 +27,7 @@ const ConfirmationScreen = ({ navigation }: ConfirmationScreenProps) => {
 
         <TouchableOpacity
           style={styles.homeButton}
-          onPress={() => navigation.popToTop()}
+          onPress={() => router.push('/')}
         >
           <Text style={styles.homeButtonText}>Back to Home</Text>
           <Ionicons name="home-outline" size={20} color="#fff" style={styles.buttonIcon} />
